@@ -6,7 +6,7 @@
 /*   By: ael-aiss <ael-aiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:34:19 by ael-aiss          #+#    #+#             */
-/*   Updated: 2025/02/26 14:46:50 by ael-aiss         ###   ########.fr       */
+/*   Updated: 2025/02/27 09:55:21 by ael-aiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,18 @@ void					cleanup(t_data *data, t_philos *philos);
 int						create_threads(t_data *data, t_philos *philos);
 void					join_threads(t_data *data, t_philos *philos);
 
-int						died(t_philos *philo, t_time start, t_time end);
+int						died(t_philos *philo, t_time start);
 void					taken_fork(t_philos *philo, t_time start);
-void					eating(t_philos *philo, t_time start, t_time end);
-void					sleeping(t_philos *philo, t_time start, t_time end);
-void					thinking(t_philos *philo, t_time start, t_time end);
+void					eating(t_philos *philo, t_time start);
+void					sleeping_thinking(t_philos *philo, t_time start);
+void					thinking(t_philos *philo, t_time start);
 long					ft_atoi(char *str);
-void					even_odd(t_time start, t_philos *philo);
+void					print_action(t_philos *philo, char *msg, t_time start,
+							t_time end);
+
+void					even_behavior(t_philos *philo, t_time start);
+void					odd_behavior(t_philos *philo, t_time start);
+
+void					one_philo(t_philos *philo);
 
 #endif

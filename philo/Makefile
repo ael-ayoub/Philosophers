@@ -6,7 +6,8 @@ SRC = ft_atoi.c \
       threads.c \
       even_odd.c \
       actions.c \
-	  cleanup.c
+	cleanup.c \
+      one_philo.c
 
 header = header.h
 
