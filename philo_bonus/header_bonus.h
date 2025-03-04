@@ -6,7 +6,7 @@
 /*   By: ael-aiss <ael-aiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:58:01 by ael-aiss          #+#    #+#             */
-/*   Updated: 2025/02/26 11:47:54 by ael-aiss         ###   ########.fr       */
+/*   Updated: 2025/03/03 01:50:55 by ael-aiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,55 +30,63 @@ typedef struct timeval	t_time;
 
 typedef struct s_data
 {
-	int					nbr_p;
+	sem_t				*mutex_fork;
+	sem_t				*forks;
+	sem_t				*alive;
+	sem_t				*count;
+	int					number;
 	int					option_arg;
 	time_t				sleep;
 	time_t				die;
 	time_t				eat;
-	sem_t				*write;
-	sem_t				*forks;
-	sem_t				*alive;
-	sem_t				*count;
-	sem_t				*mutex_fork;
+	sem_t				*lock;
+	t_time				start;
 }						t_data;
 
-typedef struct s_philos
+typedef struct s_process
 {
-	int					id_philo;
+	int					id;
 	int					number_eat;
-	pid_t				id_process;
+	pid_t				index;
 	t_data				*data;
 	t_time				last_meal_time;
-}						t_philos;
+	pthread_t			monitor;
+}						t_process;
 
 long					ft_atoi(char *str);
 
+int						init_data(t_data *data, char **av, int ac);
 time_t					set_time(t_time start, t_time end);
 int						init_time_1(char **av, t_data *data);
 int						init_time_2(char **av, t_data *data);
 
+int						create_processes(t_process *philos);
+
 int						validate_args(int ac, char *av[], t_data *data);
-void					kill_processes(t_philos *philo);
+void					kill_processes(t_process *philo);
 int						initialize_simulation(int ac, char *av[],
-							t_philos **philos, t_data *data);
+							t_process **philos, t_data *data);
 
-void					eating(t_philos *philo, t_time start);
-void					sleeping(t_philos *philo, t_time start);
-void					thinking(t_philos *philo, t_time start);
+void					eating(t_process *philo);
+void					sleeping(t_process *philo);
+void					thinking(t_process *philo);
 
-int						init_data(t_data *data, char **av, int ac);
+void					cleanup(t_process *philos, t_data *data);
+void					cleanup_child(t_process *philos);
+t_process				*init_process(t_data *data);
 
-void					cleanup(t_philos *philos, t_data *data);
-void					cleanup_child(t_philos *philos, t_data *data);
-t_philos				*init_process(t_data *data);
+void					taken_fork(t_process *philo);
 
-void					taken_fork_1(t_philos *philo, t_time start);
-void					taken_fork_2(t_philos *philo, t_time start);
+void					simulation_1(t_process *philo);
+void					simulation_2(t_process *philo);
+void					simulation(t_process *philo);
 
-void					print_actions(t_philos *philo, t_time start);
-void					simulation_1(t_philos *philo);
-void					simulation_2(t_philos *philo);
+void					one_philo(t_process *philo, t_time start);
 
-void					one_philo_1(t_philos *philo, t_time start);
-void					one_philo_2(t_philos *philo, t_time start);
+void					monitor(t_process *philos);
+
+void					wait_for_processes(t_data *data);
+void					kill_processes(t_process *philo);
+int						create_processes(t_process *philos);
+
 #endif

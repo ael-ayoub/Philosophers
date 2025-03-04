@@ -6,7 +6,7 @@
 /*   By: ael-aiss <ael-aiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:32:14 by ael-aiss          #+#    #+#             */
-/*   Updated: 2025/02/26 14:53:37 by ael-aiss         ###   ########.fr       */
+/*   Updated: 2025/03/03 02:20:59 by ael-aiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	init_time_1(char **av, t_data *data)
 	temp = ft_atoi(av[1]);
 	if (temp > INT_MAX || temp <= 0)
 		return (0);
-	data->nbr_p = (int)temp;
+	data->number = (int)temp;
 	temp = ft_atoi(av[2]);
 	if (temp > INT_MAX || temp < 0)
 		return (0);
@@ -60,7 +60,7 @@ int	init_time_2(char **av, t_data *data)
 	temp = ft_atoi(av[1]);
 	if (temp > INT_MAX || temp <= 0)
 		return (0);
-	data->nbr_p = (int)temp;
+	data->number = (int)temp;
 	temp = ft_atoi(av[2]);
 	if (temp > INT_MAX || temp < 0)
 		return (0);

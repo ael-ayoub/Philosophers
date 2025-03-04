@@ -1,13 +1,14 @@
 SRC = ft_atoi.c \
-      init_data.c \
-      philosofer.c \
-      init_time.c \
-      simulation.c \
-      threads.c \
-      even_odd.c \
-      actions.c \
+	init_data.c \
+	philosofer.c \
+	init_time.c \
+	simulation.c \
+	threads.c \
+	even_odd.c \
+	actions.c \
 	cleanup.c \
-      one_philo.c
+	one_philo.c \
+	monitor.c
 
 header = header.h
 

@@ -6,77 +6,52 @@
 /*   By: ael-aiss <ael-aiss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 22:45:56 by ael-aiss          #+#    #+#             */
-/*   Updated: 2025/02/27 10:06:39 by ael-aiss         ###   ########.fr       */
+/*   Updated: 2025/03/03 06:19:19 by ael-aiss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	died(t_philos *philo, t_time start)
+void	print_action(t_thread *philo, char *msg)
 {
 	t_time	end;
 
-	gettimeofday(&end, NULL);
-	pthread_mutex_lock(&philo->data->write);
-	if (set_time(philo->last_meal_time, end) > philo->data->die
-		&& philo->data->alive != 0)
-	{
-		philo->data->alive = 0;
-		printf("%ld %d died\n", set_time(start, end), philo->id_philo);
-		pthread_mutex_unlock(philo->left);
-		pthread_mutex_unlock(philo->right);
-		pthread_mutex_unlock(&philo->data->write);
-		return (0);
-	}
-	pthread_mutex_unlock(&philo->data->write);
-	return (1);
-}
-
-void	print_action(t_philos *philo, char *msg, t_time start, t_time end)
-{
-	pthread_mutex_lock(&philo->data->write);
+	pthread_mutex_lock(philo->data->write);
 	if (philo->data->alive == 0)
 	{
-		pthread_mutex_unlock(&philo->data->write);
-		pthread_mutex_unlock(philo->right);
-		pthread_mutex_unlock(philo->left);
+		pthread_mutex_unlock(philo->data->write);
 		return ;
 	}
-	printf("%ld %d %s", set_time(start, end), philo->id_philo, msg);
-	pthread_mutex_unlock(&philo->data->write);
+	gettimeofday(&end, NULL);
+	printf("%ld %d %s", set_time(philo->data->start, end), philo->index, msg);
+	pthread_mutex_unlock(philo->data->write);
 }
 
-void	taken_fork(t_philos *philo, t_time start)
+void	taken_fork(t_thread *philo)
 {
-	if (philo->id_philo % 2 == 0)
-		even_behavior(philo, start);
+	if (philo->index % 2 == 0)
+		even_behavior(philo);
 	else
 	{
-		usleep(1000);
-		odd_behavior(philo, start);
+		usleep(100);
+		odd_behavior(philo);
 	}
-	died(philo, start);
 }
 
-void	eating(t_philos *philo, t_time start)
+void	eating(t_thread *philo)
 {
-	t_time	end;
-
-	gettimeofday(&end, NULL);
-	print_action(philo, "is eating\n", start, end);
+	print_action(philo, "is eating\n");
+	pthread_mutex_lock(philo->data->write);
 	gettimeofday(&(philo->last_meal_time), NULL);
+	pthread_mutex_unlock(philo->data->write);
 	usleep(1000 * philo->data->eat);
 	pthread_mutex_unlock(philo->left);
 	pthread_mutex_unlock(philo->right);
 }
 
-void	sleeping_thinking(t_philos *philo, t_time start)
+void	sleeping_thinking(t_thread *philo)
 {
-	t_time	end;
-
-	gettimeofday(&end, NULL);
-	print_action(philo, "is sleeping\n", start, end);
+	print_action(philo, "is sleeping\n");
 	usleep(1000 * philo->data->sleep);
-	gettimeofday(&end, NULL);
-	print_action(philo, "is thinking\n", start, end);
+	print_action(philo, "is thinking\n");
 }

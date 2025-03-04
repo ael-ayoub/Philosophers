@@ -1,4 +1,3 @@
-
 SRC_B = actions.c \
 	cleanup.c \
 	ft_atoi.c \
@@ -7,8 +6,9 @@ SRC_B = actions.c \
 	philo_bonus.c \
 	process.c \
 	simulation.c \
-	taken_fork.c \
-	one_philo.c
+	one_philo.c \
+	monitor.c \
+	parcing.c
 
 OBJ_B = $(SRC_B:.c=.o)
 
@@ -16,7 +16,7 @@ header_b = header_bonus.h
 
 NAME = philo_bonus
 
-FLAGS = -g -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
