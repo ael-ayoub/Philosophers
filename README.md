@@ -23,19 +23,19 @@ Five philosophers sit at a round table performing three actions:
 ### Mandatory Part (philo/)
 Thread-based implementation using mutexes
 ```c
-actions.c        // Eating, sleeping, thinking actions  
-cleanup.c        // Memory management and cleanup  
-even_odd.c       // Fork acquisition optimization  
-ft_atoi.c        // String to int conversion  
-header.h         // Main header and structures  
-init_data.c      // Data initialization  
-init_time.c      // Timestamp and timing functions  
-Makefile         // Compilation rules  
-monitor.c        // Monitoring philosopher states  
-one_philo.c      // Single philosopher case  
-philosofer.c     // Entry point  
-simulation.c     // Main simulation loop  
-threads.c        // Thread management  
+actions.c        // Eating, sleeping, thinking actions
+cleanup.c        // Memory management and cleanup
+even_odd.c       // Fork acquisition optimization
+ft_atoi.c        // String to int conversion
+header.h         // Main header and structures
+init_data.c      // Data initialization
+init_time.c      // Timestamp and timing functions
+Makefile         // Compilation rules
+monitor.c        // Death monitoring system
+one_philo.c      // Single philosopher case
+philosofer.c     // Entry point
+simulation.c     // Main simulation loop
+threads.c        // Thread management
 ```
 
 ### Bonus Part (philo_bonus/)
@@ -47,14 +47,14 @@ ft_atoi.c        // Number parsing
 header_bonus.h   // Bonus structures/prototypes
 init_data.c      // Initial setup
 init_time.c      // Time management
-Makefile         // Compilation
+Makefile         // Compilation rules
+monitor.c        // Death monitoring
 one_philo.c      // Single philosopher case
+parcing.c        // Input validation and parsing
 philo_bonus.c    // Main program
 process.c        // Process handling
 simulation.c     // Simulation control
-taken_fork.c     // Semaphore operations
 ```
-
 ## 🚀 Getting Started
 
 ### Prerequisites
